@@ -29,4 +29,4 @@ else:
     print("Test failed")
 
 time.sleep(2)
-# driver.close()
+driver.close()
