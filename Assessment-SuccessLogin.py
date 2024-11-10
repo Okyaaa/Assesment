@@ -7,19 +7,21 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 
+email = "kandidat@paper.id"
+password = "paper.id"
+
 service = Service(executable_path="chromedriver")
 chr_options = Options()
 chr_options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(service=service, options=chr_options)
 driver.get("https://www.paper.id/webappv1/#/login")
-driver.find_element(By.NAME, "email").send_keys("kandidat@paper.id")
+driver.find_element(By.NAME, "email").send_keys(email)
 driver.find_element(By.CSS_SELECTOR, ".paper-button").click()
 
 try:
     WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.ID, "mat-mdc-dialog-0")))
     print("Pop up appears")
-    password = driver.find_element(By.XPATH, '//*[@id="mat-mdc-dialog-0"]/div/div/login-password-dialog/section/div[3]/form/div[1]/div[2]/input')
-    password.send_keys("paper.id")
+    driver.find_element(By.XPATH, '//*[@id="mat-mdc-dialog-0"]/div/div/login-password-dialog/section/div[3]/form/div[1]/div[2]/input').send_keys(password)
     driver.find_element(By.XPATH, '//*[@id="mat-mdc-dialog-0"]/div/div/login-password-dialog/section/div[3]/form/button').click()
 except TimeoutException:
     print("Pop up not appears")
